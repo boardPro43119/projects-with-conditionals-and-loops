@@ -3,23 +3,21 @@ public class MultiplicationTable {
 		// First row (top heading)
 		System.out.print("X    ");
 		for(int i=1; i<13; i++){
-			System.out.print(i);
-			applySpacing(i);
+			printNext(i);
 		}
 		System.out.println();
 
 		// Rows 1-12
 		for(int currentRow = 1; currentRow<13; currentRow++){
-			System.out.print(currentRow);
-			applySpacing(currentRow);
+			printNext(currentRow);
 			for(int multiplier = 1; multiplier<13; multiplier++){
-				System.out.print(currentRow*multiplier);
-				applySpacing(currentRow*multiplier);
+				printNext(currentRow*multiplier);
 			}
 			System.out.println();
 		}
 	}
-	public static void applySpacing(int num){
+	public static void printNext(int num){
+		System.out.print(num);
 		if(num<10){
 			System.out.print("    ");
 		}
