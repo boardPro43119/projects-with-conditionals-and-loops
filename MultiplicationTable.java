@@ -1,31 +1,45 @@
+import java.util.Scanner;
+
 public class MultiplicationTable {
 	public static void main(String[] args){
+		Scanner in = new Scanner(System.in);
+		System.out.print("Start with row: ");
+		int startingRow = in.nextInt();
+		System.out.print("Start with column: ");
+		int startingColumn = in.nextInt();
+		System.out.print("How many rows to print? ");
+		int rows = in.nextInt();
+		System.out.print("How many columns to print? ");
+		int columns = in.nextInt();
+
+		int columnLength = getColumnLength(startingRow, startingColumn, rows, columns);
+
 		// First row (top heading)
-		System.out.print("X    ");
-		for(int i=1; i<13; i++){
-			printNext(i);
+		printNext("X", columnLength);
+		for(int i=startingColumn; i<startingColumn+columns; i++){
+			printNext(Integer.toString(i), columnLength);
 		}
 		System.out.println();
 
 		// Rows 1-12
-		for(int currentRow = 1; currentRow<13; currentRow++){
-			printNext(currentRow);
-			for(int multiplier = 1; multiplier<13; multiplier++){
-				printNext(currentRow*multiplier);
+		for(int currentRow = startingRow; currentRow<startingRow+rows; currentRow++){
+			printNext(Integer.toString(currentRow), columnLength);
+			for(int multiplier = startingColumn; multiplier<startingColumn+columns; multiplier++){
+				printNext(Integer.toString(currentRow*multiplier), columnLength);
 			}
 			System.out.println();
 		}
 	}
-	public static void printNext(int num){
-		System.out.print(num);
-		if(num<10){
-			System.out.print("    ");
+
+	public static void printNext(String str, int columnLength){
+		System.out.print(str);
+		for(int i=str.length(); i<= columnLength; i++){
+			System.out.print(" ");
 		}
-		else if(num<100){
-			System.out.print("   ");
-		}
-		else{
-			System.out.print("  ");
-		}
+	}
+
+	public static int getColumnLength(int startingRow, int startingColumn, int rows, int columns){
+		int largestNumber = (startingRow+rows-1)*(startingColumn+columns-1);
+		return Integer.toString(largestNumber).length();
 	}
 }
