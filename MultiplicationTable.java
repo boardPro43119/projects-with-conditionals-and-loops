@@ -1,6 +1,11 @@
 import java.util.Scanner;
 
 public class MultiplicationTable {
+	//************************************************************************
+	// MultiplicationTable.java			Author: Benjamin Prud'homme
+	// An application that prints a specific portion of the multiplication
+	// table as requested by the user.
+	//************************************************************************
 	public static void main(String[] args){
 		Scanner in = new Scanner(System.in);
 		System.out.print("Start with row: ");
