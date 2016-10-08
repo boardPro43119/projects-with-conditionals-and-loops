@@ -43,15 +43,57 @@ public class MultiplicationTable {
 	// Prints next number (or "X" at top left), adds appropriate spacing
 	public static void printCell(String str, int columnLength){
 		System.out.print(str); // Print next number
-		for(int i=str.length(); i<= columnLength; i++){
+		for(int i=str.length(); i< columnLength; i++){
 			// Add a space for each digit short of the maximum length, plus one
 			System.out.print(" ");
 		}
+		System.out.print("|"); // Print cell separator
 	}
 
-	// Returns the number of digits in the largest number to be printed
+	// Returns the number of digits in the longest number to be printed
 	public static int getColumnLength(int startingRow, int startingColumn, int rows, int columns){
-		int largestNumber = (startingRow+rows-1)*(startingColumn+columns-1); // Calculate largest number to be printed
-		return Integer.toString(largestNumber).length(); // Returns number of digits in this number
+		int lastRow = startingRow+rows-1;
+		int lastColumn = startingColumn+columns-1;
+
+		int topLeft = startingRow*startingColumn;
+		int topRight = startingRow*lastColumn;
+		int botLeft = lastRow*startingColumn;
+		int botRight = lastRow*lastColumn;
+
+		int[] corners = {topLeft, topRight, botLeft, botRight};
+
+		int min = getMin(corners);
+		int max = getMax(corners);
+		int minNumLength = Integer.toString(min).length();
+		int maxNumLength = Integer.toString(max).length();
+
+		//debugging
+		System.out.println("Corner values: " + topLeft + ", " + topRight + ", " + botLeft + ", " + botRight);
+		System.out.println("Minimum: " + min + " (length " + minNumLength + " digits)");
+		System.out.println("Maximum: " + max + " (length " + maxNumLength + " digits)");
+
+		return (minNumLength>maxNumLength) ? minNumLength : maxNumLength;
+	}
+
+	private static int getMin(int[] values){
+		int min = Integer.MAX_VALUE;
+		for(int i=0; i<values.length; i++){
+			if(values[i]<min){
+				min = values[i];
+			}
+		}
+		System.out.println(min);
+		return min;
+	}
+
+	private static int getMax(int[] values){
+		int max = Integer.MIN_VALUE;
+		for(int i=0; i<values.length; i++){
+			if(values[i]>max){
+				max = values[i];
+			}
+		}
+		System.out.println(max);
+		return max;
 	}
 }
