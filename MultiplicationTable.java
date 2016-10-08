@@ -42,12 +42,11 @@ public class MultiplicationTable {
 
 	// Prints next number (or "X" at top left), adds appropriate spacing
 	public static void printCell(String str, int columnLength){
-		System.out.print(str); // Print next number
 		for(int i=str.length(); i< columnLength; i++){
 			// Add a space for each digit short of the maximum length, plus one
 			System.out.print(" ");
 		}
-		System.out.print("|"); // Print cell separator
+		System.out.print(str + "|");
 	}
 
 	// Returns the number of digits in the longest number to be printed
