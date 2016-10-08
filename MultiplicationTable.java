@@ -22,26 +22,26 @@ public class MultiplicationTable {
 		int columnLength = getColumnLength(startingRow, startingColumn, rows, columns);
 
 		// First row (top heading)
-		printNext("X", columnLength); // Start with multiplication symbol
+		printCell("X", columnLength); // Start with multiplication symbol
 		for(int i=startingColumn; i<startingColumn+columns; i++){
 			// Print column numbers starting from startingColumns
-			printNext(Integer.toString(i), columnLength);
+			printCell(Integer.toString(i), columnLength);
 		}
 		System.out.println(); // Move to next row
 
 		// All subesquent rows
 		for(int currentRow = startingRow; currentRow<startingRow+rows; currentRow++){
-			printNext(Integer.toString(currentRow), columnLength); // Print row number
+			printCell(Integer.toString(currentRow), columnLength); // Print row number
 			for(int multiplier = startingColumn; multiplier<startingColumn+columns; multiplier++){
 				// On each row, print results of multiplying row number by column numbers
-				printNext(Integer.toString(currentRow*multiplier), columnLength);
+				printCell(Integer.toString(currentRow*multiplier), columnLength);
 			}
 			System.out.println(); // Move to next row
 		}
 	}
 
 	// Prints next number (or "X" at top left), adds appropriate spacing
-	public static void printNext(String str, int columnLength){
+	public static void printCell(String str, int columnLength){
 		System.out.print(str); // Print next number
 		for(int i=str.length(); i<= columnLength; i++){
 			// Add a space for each digit short of the maximum length, plus one
