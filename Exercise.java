@@ -1,13 +1,14 @@
 import java.util.Scanner;
 
+
 public class Exercise {
 	public static void main(String args[]){
-		Scanner in = new Scanner(System.in);
-		System.out.print("Enter a string: ");
-		String str = in.nextLine();
+		powersOfTwo();
+	}
 
-		for(int i=str.length()-1; i>=0; i--){
-			System.out.print(str.charAt(i));
+	public static void powersOfTwo(){
+		for(int i=1; i<11; i++){
+			System.out.println((int)Math.pow(2, i));
 		}
 	}
 }
