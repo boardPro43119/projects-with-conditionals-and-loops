@@ -2,22 +2,42 @@ import java.util.Scanner;
 
 public class HundredBottlesOfBeer {
 	public static void main(String[] args){
-		Scanner in = new Scanner(System.in);
-		System.out.print("Verses to print (from 1 to 100): ");
+		final int MAX_BOTTLES = 100;
+		int bottles = MAX_BOTTLES,
+		verses = readNumOfVerses();
 
+		for(int i=0; i<verses; i++){
+			if(bottles==0){
+				bottles = MAX_BOTTLES;
+				System.out.println("No more bottles of beer on the wall\n" +
+							   "No more bottles of beer\n" +
+							   "Go to the store and buy some more\n" +
+							   bottles + " bottles of beer on the wall\n");
+			}
+			else {
+				System.out.println(bottles + " bottles of beer on the wall\n" +
+								   bottles + " bottles of beer\n" +
+								   "Take one down and pass it around");
+				if(bottles==1){
+					System.out.println("No more bottles of beer on the wall\n");
+				}
+				else {
+					System.out.println((bottles-1) + " bottles of beer on the wall\n");
+				}
+				bottles--;
+			}
+		}
+	}
+	public static int readNumOfVerses(){
+		System.out.print("Verses to print: ");
+		Scanner in = new Scanner(System.in);
 		int verses;
 		do {
 			verses = in.nextInt();
-			if(verses<=0 || verses>100){
-				System.out.print("Please enter a number of verses from 1 to 100: ");
+			if(verses<=0){
+				System.out.print("Enter a number of verses: ");
 			}
-		} while(verses<=0 || verses>100);
-
-		for(int i=100; i>100-verses; i--){
-			System.out.println(i + " bottles of beer on the wall\n" +
-							   i + " bottles of beer\n" +
-							   "If one of those bottles should happen to fall\n" +
-							   (i-1) + " bottles of beer on the wall\n");
-		}
+		} while(verses<=0);
+		return verses;
 	}
 }
