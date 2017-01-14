@@ -3,96 +3,100 @@ import java.util.Random;
 
 
 public class RockPaperScissors {
+
+	private static Scanner in = new Scanner(System.in);
+
 	public static void main(String[] args){
-		Scanner in = new Scanner(System.in);
-		Random computerChooser = new Random();
 		String userChoice,
-			   computerChoice = "";
-		int result = -1,
-			wins = 0,
+			   computerChoice;
+		int wins = 0,
 			losses = 0,
 			ties = 0;
 		boolean running = true;
 
 		while(running){
-			// Computer makes its choice
-			switch(computerChooser.nextInt(3)){
-				case 0:
-					computerChoice = "rock";
-					break;
-				case 1:
-					computerChoice = "paper";
-					break;
-				case 2:
-					computerChoice = "scissors";
-					break;
-			}
 
 			// Get user's choice
-			System.out.print("Choose rock, paper, or scissors: ");
-			userChoice = in.next();
+			userChoice = getUserChoice();
 
-			if(computerChoice.equalsIgnoreCase("rock")){
-				switch(userChoice){
-				case "rock":
-					result = 1;
-					break;
-				case "paper":
-					result = 2;
-					break;
-				case "scissors":
-					result = 0;
-					break;
+			running = !(userChoice.equalsIgnoreCase("q"));
+
+			if(running){
+				// Computer makes its choice
+				computerChoice = getComputerChoice();
+
+				switch(getResult(userChoice, computerChoice)){
+					case 2:
+						System.out.println("Computer chooses " + computerChoice + ", you win!");
+						wins++;
+						break;
+					case 1:
+						System.out.println("Computer chooses " + computerChoice + ", it's a tie.");
+						ties++;
+						break;
+					case 0:
+						System.out.println("Computer chooses " + computerChoice + ", you lose.");
+						losses++;
+						break;
 				}
 			}
-			else if(computerChoice.equalsIgnoreCase("paper")){
-				switch(userChoice){
-				case "rock":
-					result = 0;
-					break;
-				case "paper":
-					result = 1;
-					break;
-				case "scissors":
-					result = 2;
-					break;
-				}
-			}
-			else if(computerChoice.equalsIgnoreCase("scissors")){
-				switch(userChoice){
-				case "rock":
-					result = 2;
-					break;
-				case "paper":
-					result = 0;
-					break;
-				case "scissors":
-					result = 1;
-					break;
-				}
-			}
-
-			switch(result){
-				case 2:
-					System.out.println("Computer chooses " + computerChoice + ", you win!");
-					wins++;
-					break;
-				case 1:
-					System.out.println("Computer chooses " + computerChoice + ", it's a tie.");
-					ties++;
-					break;
-				case 0:
-					System.out.println("Computer chooses " + computerChoice + ", you lose.");
-					losses++;
-					break;
-			}
-
-			System.out.print("Do you want to play again (Y/N)? ");
-			if(in.next().equalsIgnoreCase("N")) running = false;
 		}
+
 		System.out.println("Total wins: " + wins);
 		System.out.println("Total losses: " + losses);
 		System.out.println("Total ties: " + ties);
 
 	}
+
+	public static String getUserChoice(){
+		String userChoice = "";
+		while(!isValidUserChoice(userChoice)){
+			System.out.print("Choose rock, paper, or scissors (or q to quit): ");
+			userChoice = in.nextLine();
+		}
+		return userChoice;
+	}
+
+	public static boolean isValidUserChoice(String userChoice){
+		return userChoice.equalsIgnoreCase("rock") ||
+			userChoice.equalsIgnoreCase("paper") ||
+			userChoice.equalsIgnoreCase("scissors") ||
+			userChoice.equalsIgnoreCase("q");
+	}
+
+	public static String getComputerChoice(){
+		String computerChoice = "";
+		Random computerChooser = new Random();
+		switch(computerChooser.nextInt(3)){
+			case 0:
+				computerChoice = "rock";
+				break;
+			case 1:
+				computerChoice = "paper";
+				break;
+			case 2:
+				computerChoice = "scissors";
+				break;
+		}
+		return computerChoice;
+	}
+
+	public static int getResult(String userChoice, String computerChoice){
+		int result; // Variable to represent win, loss, or tie
+		if(userChoice.equalsIgnoreCase(computerChoice)){
+			result = 1; // result = 1 for a tie
+		}
+		else if(computerChoice.equalsIgnoreCase("rock")){
+			result = userChoice.equalsIgnoreCase("paper") ? 2 : 0; // result = 2 for a win, 0 for a loss
+		}
+		else if(computerChoice.equalsIgnoreCase("paper")){
+			result = userChoice.equalsIgnoreCase("scissors") ? 2 : 0;
+		}
+
+		else {
+			result = userChoice.equalsIgnoreCase("rock") ? 2 : 0;
+		}
+		return result;
+	}
+
 }
