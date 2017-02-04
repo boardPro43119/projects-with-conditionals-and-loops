@@ -101,49 +101,51 @@ public class Stars {
 
 	public static void diamond(int rows){
 		int size = rows;
+		int upperRows;
+		int lowerRows;
 		int asterisks = 1;
 		int width;
 		int spaces;
 
-		if(size%2 == 0){
-			width = size-1;
-		}
-		else{
-			width=size;
-		}
-
+		width = (size%2 == 0) ? size-1 : size;
 		spaces = width/2;
+		upperRows = (size%2 == 0) ? size/2 : (size/2)+1;
+		lowerRows = size-upperRows;
 
 		System.out.println("size = " + size);
 		System.out.println("width = " + width);
 		System.out.println("spaces = " + spaces);
 
-		while(spaces >= 0){
-			for(int i=0; i<spaces; i++){
+
+		for(int i=0; i<upperRows; i++){
+			for(int j=0; j<spaces; j++){
 				System.out.print(" ");
 			}
-			spaces--;
-			for(int i=0; i<asterisks; i++){
+			for(int j=0; j<asterisks; j++){
 				System.out.print("*");
 			}
-			asterisks+=2;
+			spaces--;
+			asterisks+=2; // Increment row
 			System.out.println();
 		}
 
-			if(size%2 == 1){
-			asterisks-=2;
-			spaces++;
-			}
+		spaces = 0;
+		asterisks = width;
 
-		while(spaces < width/2){
-			spaces+=1;
-			for(int i=0; i<spaces; i++){
+		if(size%2 == 1){
+			spaces++;
+			asterisks-=2; // If there are an odd number of rows, decrement the next row
+		}
+
+		for(int i=0; i<lowerRows; i++){
+			for(int j=0; j<spaces; j++){
 				System.out.print(" ");
 			}
-			asterisks-=2;
-			for(int i=0; i<asterisks; i++){
+			for(int j=0; j<asterisks; j++){
 				System.out.print("*");
 			}
+			spaces++;
+			asterisks-=2; // Decrement row
 			System.out.println();
 		}
 	}
